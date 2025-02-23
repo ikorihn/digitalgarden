@@ -64,7 +64,7 @@ jq -r '.[] | [.name, .age, .count] | @tsv' list.json | {
 ### while文の中で変数を更新したい場合
 
 パイプで渡すと変数が更新されないので注意
-[[shellでwhile readの中で変数を変更しても反映されない]
+[[shellでwhile readの中で変数を変更しても反映されない]]
 
 ```shell
 $ TAB=$(printf '\t')

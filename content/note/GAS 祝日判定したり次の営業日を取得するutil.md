@@ -15,8 +15,10 @@ tags:
 ```ts
 /**
  * 土日祝かどうかを判定する
+ * @param {Date} date
+ * @returns boolean
  */
-export function isHoliday(date: Date): boolean {
+export function isHoliday(date) {
     if (date.getDay() === 0 || date.getDay() === 6) {
         return true
     }
@@ -24,6 +26,7 @@ export function isHoliday(date: Date): boolean {
     const holiday = CalendarApp.getCalendarById('ja.japanese#holiday@group.v.calendar.google.com')
     return holiday.getEventsForDay(date).length > 0
 }
+
 ```
 
 ## 営業日を取得する
@@ -33,13 +36,16 @@ export function isHoliday(date: Date): boolean {
 ```ts
 /**
  * 与えられた日付の次の営業日を返す 引数が営業日だったらそのまま
+ * @param {Date} date
+ * @returns Date
  */
-export function nextBusinessDay(date: Date): Date {
+export function nextBusinessDay(date) {
     if (isHoliday(date)) {
         return nextBusinessDay(new Date(date.getTime() + 1000 * 60 * 60 * 24 * 1))
     }
     return date
 }
+
 ```
 
 ## おまけ
@@ -47,7 +53,12 @@ export function nextBusinessDay(date: Date): Date {
 ### 指定した日付の次のx曜日を取得する
 
 ```ts
-export function nextDayOfWeek(date: Date, dayOfWeek: number): Date {
+/**
+ * @param {Date} date
+ * @param {number} date
+ * @returns Date
+ */
+export function nextDayOfWeek(date, dayOfWeek) {
     const newDate = new Date(date.getTime())
     let diff = (dayOfWeek - date.getDay() + 7) % 7
     if (diff === 0) {
@@ -56,13 +67,19 @@ export function nextDayOfWeek(date: Date, dayOfWeek: number): Date {
     newDate.setDate(date.getDate() + diff)
     return newDate
 }
+
 ```
 
 ### 指定した日付の曜日を日本語で取得する
 
 ```ts
-export function getJapaneseDayOfWeek(date: Date): string {
+/**
+ * @param {Date} date
+ * @returns string
+ */
+export function getJapaneseDayOfWeek(date) {
     const japanese_day_of_week = ['日', '月', '火', '水', '木', '金', '土']
     return japanese_day_of_week[date.getDay()]
 }
+
 ```
